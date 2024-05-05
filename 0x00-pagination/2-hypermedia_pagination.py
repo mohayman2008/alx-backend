@@ -91,7 +91,7 @@ class Server:
         hyper["total_pages"] = math.ceil(dataset_len / page_size)
 
         start, end = index_range(page, page_size)
-        # print(start, end)
+
         if end >= dataset_len:
             hyper["next_page"] = None
         else:
