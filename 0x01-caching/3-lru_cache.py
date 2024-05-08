@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-'''This module contains the declaration of class "FIFOCache"'''
+'''This module contains the declaration of class "LRUCache"'''
 from collections import OrderedDict
 from typing import Any, Hashable, Optional
 
 from base_caching import BaseCaching
 
 
-class FIFOCache (BaseCaching):
-    '''FIFOCache: caching system using FIFO replacement algorithm'''
+class LRUCache (BaseCaching):
+    '''LRUCache: caching system using LRU replacement algorithm'''
 
     def __init__(self):
         '''Constructor'''
@@ -32,4 +32,8 @@ class FIFOCache (BaseCaching):
         '''Get an item by key'''
         if key is None:
             return None
-        return self.cache_data.get(key, None)
+
+        if key in self.cache_data.keys():
+            self.cache_data.move_to_end(key)
+            return self.cache_data.get(key)
+        return None

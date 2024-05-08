@@ -7,7 +7,7 @@ from base_caching import BaseCaching
 
 
 class LIFOCache (BaseCaching):
-    '''BasicCache: caching system using LIFO replacement algorithm'''
+    '''LIFOCache: caching system using LIFO replacement algorithm'''
 
     def __init__(self):
         '''Constructor'''

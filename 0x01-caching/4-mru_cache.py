@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-'''This module contains the declaration of class "FIFOCache"'''
+'''This module contains the declaration of class "MRUCache"'''
 from collections import OrderedDict
 from typing import Any, Hashable, Optional
 
 from base_caching import BaseCaching
 
 
-class FIFOCache (BaseCaching):
-    '''FIFOCache: caching system using FIFO replacement algorithm'''
+class MRUCache (BaseCaching):
+    '''MRUCache: caching system using MRU replacement algorithm'''
 
     def __init__(self):
         '''Constructor'''
@@ -23,7 +23,7 @@ class FIFOCache (BaseCaching):
         if key in keys:
             self.cache_data.move_to_end(key)
         elif len(keys) >= self.MAX_ITEMS:
-            popped_key, pooped_val = self.cache_data.popitem(last=False)
+            popped_key, pooped_val = self.cache_data.popitem()
             print(f"DISCARD: {popped_key}")
 
         self.cache_data[key] = item
@@ -32,4 +32,8 @@ class FIFOCache (BaseCaching):
         '''Get an item by key'''
         if key is None:
             return None
-        return self.cache_data.get(key, None)
+
+        if key in self.cache_data.keys():
+            self.cache_data.move_to_end(key)
+            return self.cache_data.get(key)
+        return None
