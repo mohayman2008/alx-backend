@@ -36,7 +36,7 @@ class LFUCache (BaseCaching):
                 if ad[k][0] < count or (ad[k][0] == count and
                                         ad[k][1] < last_accessed):
                     lf_lru = k
-                    count, last_accessed = ad[k[0]]
+                    count, last_accessed = ad[k]
             print(f"DISCARD: {lf_lru}")
             del ad[lf_lru]
             del self.cache_data[lf_lru]
@@ -53,6 +53,7 @@ class LFUCache (BaseCaching):
             return None
 
         if key in self.cache_data.keys():
-            self.access_data[key] = (self.access_data[key][0] + 1, now())
+            self.access_data[key] = (self.access_data.get(key, (0,))[0] + 1,
+                                     now())
             return self.cache_data.get(key)
         return None
