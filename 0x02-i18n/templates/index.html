@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<HTML>
+  <HEAD>
+    <TITLE>{{ gettext("home_title") }}</TITLE>
+  </HEAD>
+  <Body>
+    <H1>{{ gettext("home_header") }}</H1>
+    {% if username %}
+    <p>{{ gettext("logged_in_as", username=username) }}</p>
+    {% else %}
+    <p>{{ gettext("not_logged_in") }}</p>
+    {% endif %}
+
+    <p>{{ gettext("current_time_is", current_time=current_time) }}</p>
+  </Body>
+</HTML>
