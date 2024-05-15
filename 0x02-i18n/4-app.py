@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 '''Simple Flask app'''
+from typing import Optional
+
 from flask import Flask, render_template, request
 from flask_babel import Babel  # type: ignore
 
@@ -17,7 +19,7 @@ babel = Babel(app)
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> Optional[str]:
     '''This function is used to get the approperiate locale'''
     locale = request.args.get('locale')
     if locale and locale in app.config["LANGUAGES"]:

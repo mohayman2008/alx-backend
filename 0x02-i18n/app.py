@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 '''Simple Flask app'''
 from datetime import datetime
-from typing import Dict
+from typing import Dict, Optional
 
 from flask import Flask, g, render_template, request
 from flask_babel import Babel, format_datetime  # type: ignore
@@ -16,7 +16,7 @@ class Config():
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
-users = {
+users: Dict[int, Dict] = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
     2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
     3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
@@ -24,7 +24,7 @@ users = {
 }
 
 
-def get_user() -> Dict:
+def get_user() -> Optional[Dict]:
     '''Returns the user dictionary, if "login_as" url parameter was passed in
     with valid "user_id"'''
     user_id = request.args.get("login_as")
@@ -48,7 +48,7 @@ babel = Babel(app)
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> Optional[str]:
     '''This function is used to get the approperiate locale'''
     locale = request.args.get('locale')
     if locale and locale in app.config["LANGUAGES"]:
