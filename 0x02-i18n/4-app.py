@@ -18,7 +18,7 @@ babel = Babel(app)
 
 @babel.localeselector
 def get_locale():
-    '''This function is used to get the locale from the "request"'''
+    '''This function is used to get the approperiate locale'''
     locale = request.args.get('locale')
     if locale and locale in app.config["LANGUAGES"]:
         return locale
