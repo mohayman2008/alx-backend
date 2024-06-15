@@ -30,14 +30,18 @@ app.listen(PORT, () => {
 });
 
 app.get('/list_products', (req, res) => {
+  res.type('application/json');
   res.send(genProductsListJSON(listProducts));
 });
 
 app.get('/list_products/:itemId', async (req, res) => {
+  res.type('application/json');
   res.send(await genProductJSON(Number(req.params.itemId)));
 });
 
 app.get('/reserve_product/:itemId', async (req, res) => {
+  res.type('application/json');
+
   const itemId = Number(req.params.itemId);
   const product = getItemById(itemId);
   if (!product)

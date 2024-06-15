@@ -19,6 +19,15 @@ describe('createPushNotificationsJobs', function () {
     queue.testMode.exit();
   });
 
+  it('throws the right error when <jobs> is not an array', function (done) {
+    const jobsData = { 0: { xyz: 'abc' }, 1: { num: 123 } };
+    expect(() => createPushNotificationsJobs(jobsData, queue)).to.throw('Jobs is not an array');
+
+    const { jobs } = queue.testMode;
+    expect(jobs.length).to.be.equal(0);
+    done();
+  });
+
   it('creates jobs in the right queue with the right data', function (done) {
     const jobsData = [
       {
@@ -40,15 +49,6 @@ describe('createPushNotificationsJobs', function () {
     expect(jobs[0].type).to.be.equal(jobs[1].type).to.be.equal(Q_NAME);
     expect(jobs[0].data).to.be.equal(jobsData[0]);
     expect(jobs[1].data).to.be.equal(jobsData[1]);
-    done();
-  });
-
-  it('throws the right error when <jobs> is not an array', function (done) {
-    const jobsData = { 0: { xyz: 'abc' }, 1: { num: 123 } };
-    expect(() => createPushNotificationsJobs(jobsData, queue)).to.throw('Jobs is not an array');
-
-    const { jobs } = queue.testMode;
-    expect(jobs.length).to.be.equal(0);
     done();
   });
 });

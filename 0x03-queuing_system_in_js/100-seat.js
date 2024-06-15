@@ -43,7 +43,8 @@ app.get('/process', async (req, res) => {
 });
 
 async function getCurrentAvailableSeats() {
-  return redisGetAsync('available_seats');
+  const value = await redisGetAsync('available_seats');
+  return value;
 }
 
 function reserveSeat(number) {
